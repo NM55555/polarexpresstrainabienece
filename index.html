@@ -1,125 +1,93 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#07111f">
+  <meta name="theme-color" content="#000">
   <title>Polar Express Train Ambience</title>
   <style>
     * { box-sizing: border-box; }
-    html, body { width: 100%; min-height: 100%; margin: 0; background: #07111f; color: #fff; font-family: system-ui, sans-serif; }
-    body { min-height: 100svh; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      background: #000;
+      overflow: hidden;
+    }
+
     #cover {
       position: fixed;
       inset: 0;
-      display: grid;
-      place-items: center;
-      overflow: hidden;
-      isolation: isolate;
-      background: linear-gradient(180deg, #07111f 0%, #142c49 58%, #d2e7f2 100%);
+      width: 100%;
+      height: 100%;
+      background: #000 url("https://i.ytimg.com/vi/tmC1iYXb_og/maxresdefault.jpg") center / cover no-repeat;
     }
-    #cover-art { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; }
-    #cover::after {
-      content: "";
+
+    #play {
       position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(3, 10, 20, .25), transparent 35%, rgba(3, 10, 20, .48));
-      z-index: -1;
-    }
-    .cover-content { width: min(92vw, 760px); padding: 28px 20px; text-align: center; text-shadow: 0 2px 18px #07111f; }
-    h1 { margin: 0 0 10px; font-size: clamp(2rem, 7vw, 4.5rem); line-height: 1.05; letter-spacing: .02em; }
-    .subtitle { margin: 0 0 28px; font-size: clamp(1rem, 2.5vw, 1.25rem); }
-    #play-button {
-      display: inline-grid;
-      place-items: center;
-      width: 92px;
-      height: 64px;
-      padding: 0;
+      left: 50%;
+      top: 50%;
+      width: 90px;
+      height: 62px;
+      transform: translate(-50%, -50%);
       border: 0;
-      border-radius: 18px;
-      background: #ff0033;
-      color: #fff;
+      border-radius: 16px;
+      background: #ff0000;
       cursor: pointer;
       box-shadow: 0 8px 30px rgba(0, 0, 0, .4);
-      transition: transform .18s ease, background .18s ease;
+      transition: background .18s ease, transform .18s ease;
     }
-    #play-button:hover { transform: scale(1.08); background: #e6002e; }
-    #play-button:focus-visible { outline: 4px solid white; outline-offset: 5px; }
-    #play-button svg { width: 31px; height: 31px; margin-left: 4px; }
-    .play-label { display: block; margin-top: 12px; font-weight: 650; }
-    #train-video { position: fixed; inset: 0; width: 100%; height: 100%; border: 0; background: #000; }
-    #train-video[hidden] { display: none; }
-    @media (prefers-reduced-motion: reduce) { #play-button { transition: none; } }
+
+    #play:hover {
+      background: #e60000;
+      transform: translate(-50%, -50%) scale(1.08);
+    }
+
+    #play:focus-visible {
+      outline: 4px solid #fff;
+      outline-offset: 5px;
+    }
+
+    #play::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-42%, -50%);
+      border-style: solid;
+      border-width: 16px 0 16px 28px;
+      border-color: transparent transparent transparent #fff;
+    }
+
+    iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background: #000;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #play { transition: none; }
+    }
   </style>
 </head>
 <body>
-  <main id="cover" aria-label="Polar Express Train Ambience cover">
-    <svg id="cover-art" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Illustration of a train crossing a snowy landscape at night">
-      <defs>
-        <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#07111f"/><stop offset=".62" stop-color="#24466a"/><stop offset="1" stop-color="#b9d5e5"/></linearGradient>
-        <linearGradient id="snow" x2="0" y2="1"><stop stop-color="#f5fbff"/><stop offset="1" stop-color="#90b2c8"/></linearGradient>
-        <linearGradient id="engine" x2="0" y2="1"><stop stop-color="#e4bd76"/><stop offset="1" stop-color="#8d3728"/></linearGradient>
-        <filter id="glow"><feGaussianBlur stdDeviation="18"/></filter>
-      </defs>
-      <rect width="1600" height="900" fill="url(#sky)"/>
-      <circle cx="1250" cy="170" r="58" fill="#fff2c6" opacity=".9"/>
-      <circle cx="1250" cy="170" r="92" fill="#fff2c6" opacity=".16" filter="url(#glow)"/>
-      <g fill="#fff" opacity=".85">
-        <circle cx="180" cy="120" r="3"/><circle cx="380" cy="210" r="2"/><circle cx="575" cy="95" r="3"/><circle cx="760" cy="170" r="2"/><circle cx="1000" cy="90" r="2"/><circle cx="1450" cy="300" r="3"/><circle cx="260" cy="330" r="2"/><circle cx="900" cy="285" r="2"/>
-      </g>
-      <path d="M0 500 190 300 360 500 555 270 800 520 1030 315 1260 520 1450 330 1600 485V900H0Z" fill="#d9eaf3" opacity=".42"/>
-      <path d="M0 570 230 420 450 585 690 390 940 590 1190 405 1410 570 1600 440V900H0Z" fill="#a9c7d9" opacity=".7"/>
-      <path d="M0 635 Q300 535 560 640 T1100 620 T1600 590V900H0Z" fill="url(#snow)"/>
-      <g fill="#102b3c">
-        <path d="m95 620 65-230 65 230h-42l-23-88-24 88z"/><path d="m210 622 48-177 50 177h-32l-18-67-18 67z"/>
-        <path d="m1330 610 75-260 75 260h-48l-27-99-27 99z"/><path d="m1450 620 55-200 58 200h-38l-20-77-21 77z"/>
-      </g>
-      <g transform="translate(390 485)">
-        <path d="M40 190h740l-25 46H0z" fill="#263a49" opacity=".7"/>
-        <path d="M65 70h125v112H65z" fill="#193347" stroke="#e9c77d" stroke-width="8"/>
-        <path d="M78 83h45v47H78zM133 83h44v47h-44z" fill="#ffd77b"/>
-        <path d="M200 94h365v88H200z" fill="#963c2b" stroke="#e8c47d" stroke-width="8"/>
-        <path d="M220 107h65v45h-65zM305 107h65v45h-65zM390 107h65v45h-65zM475 107h65v45h-65z" fill="#ffd77b"/>
-        <path d="M560 112h110v70H560z" fill="#763126" stroke="#e8c47d" stroke-width="8"/>
-        <path d="M650 70h110v112H650z" fill="url(#engine)" stroke="#f0d18a" stroke-width="8"/>
-        <path d="M672 88h38v40h-38zM720 88h27v40h-27z" fill="#ffe29a"/>
-        <path d="M660 66h88l-20-29h-54z" fill="#372e32" stroke="#e8c47d" stroke-width="7"/>
-        <path d="M690 36V0h37v38" fill="#3c3438" stroke="#e8c47d" stroke-width="7"/>
-        <path d="M693 0c-48-28 25-43-4-78 70 36 4 52 47 78" fill="#d8e6ee" opacity=".5"/>
-        <circle cx="115" cy="190" r="30" fill="#202b34" stroke="#d7b86f" stroke-width="8"/><circle cx="290" cy="190" r="30" fill="#202b34" stroke="#d7b86f" stroke-width="8"/><circle cx="500" cy="190" r="30" fill="#202b34" stroke="#d7b86f" stroke-width="8"/><circle cx="700" cy="190" r="30" fill="#202b34" stroke="#d7b86f" stroke-width="8"/>
-        <path d="M0 239h820M0 260h820" stroke="#3b4d59" stroke-width="9"/>
-      </g>
-      <path d="M0 750 Q350 690 650 750 T1250 740 T1600 700V900H0Z" fill="#f5fbff" opacity=".8"/>
-    </svg>
-    <div class="cover-content">
-      <h1>Polar Express Train Ambience</h1>
-      <p class="subtitle">Settle in for a cozy winter journey</p>
-      <button id="play-button" type="button" aria-label="Play train ambience">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.2c0-.8.9-1.3 1.6-.9l9.1 6.1c.6.4.6 1.3 0 1.7l-9.1 6.1c-.7.4-1.6-.1-1.6-.9z"/></svg>
-      </button>
-      <span class="play-label">Press to play</span>
-    </div>
+  <main id="cover" aria-label="Polar Express Train Ambience video cover">
+    <button id="play" type="button" aria-label="Play Polar Express Train Ambience"></button>
   </main>
 
-  <iframe
-    id="train-video"
-    src=""
-    title="Train ambience video"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-    referrerpolicy="strict-origin-when-cross-origin"
-    allowfullscreen
-    hidden
-  ></iframe>
-
   <script>
-    const button = document.getElementById('play-button');
-    const cover = document.getElementById('cover');
-    const video = document.getElementById('train-video');
+    const cover = document.getElementById("cover");
 
-    button.addEventListener('click', () => {
-      video.src = 'https://www.youtube-nocookie.com/embed/tmC1iYXb_og?autoplay=1&start=61';
-      video.hidden = false;
-      cover.remove();
+    document.getElementById("play").addEventListener("click", () => {
+      const video = document.createElement("iframe");
+      video.src = "https://www.youtube-nocookie.com/embed/tmC1iYXb_og?autoplay=1&start=61";
+      video.title = "Polar Express Train Ambience";
+      video.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+      video.referrerPolicy = "strict-origin-when-cross-origin";
+      video.allowFullscreen = true;
+      cover.replaceWith(video);
     });
   </script>
 </body>
