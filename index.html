@@ -4,20 +4,65 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#000000">
-  <title>Train Ambience</title>
+  <title>Polar Express Train Ambience</title>
   <style>
     * { box-sizing: border-box; }
-    html, body { width: 100%; height: 100%; margin: 0; background: #000; }
-    iframe { display: block; width: 100%; height: 100%; border: 0; }
+    html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: #000; }
+    iframe {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    #start-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      display: grid;
+      place-items: center;
+      background: #000;
+      transition: opacity 0.25s ease;
+    }
+    #start-screen.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    #play-button {
+      width: min(260px, 70vw);
+      padding: 22px 30px;
+      border: 3px solid #fff;
+      border-radius: 999px;
+      background: #b91c1c;
+      color: #fff;
+      font: 700 24px/1 sans-serif;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
+  <div id="start-screen">
+    <button id="play-button" type="button">Play Train Ambience</button>
+  </div>
+
   <iframe
-    src="https://www.youtube-nocookie.com/embed/tmC1iYXb_og?autoplay=1&start=61"
+    id="train-video"
+    src=""
     title="Train ambience video"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
     referrerpolicy="strict-origin-when-cross-origin"
     allowfullscreen
   ></iframe>
+
+  <script>
+    const button = document.getElementById('play-button');
+    const screen = document.getElementById('start-screen');
+    const video = document.getElementById('train-video');
+
+    button.addEventListener('click', () => {
+      video.src = 'https://www.youtube-nocookie.com/embed/tmC1iYXb_og?autoplay=1&start=61';
+      screen.classList.add('hidden');
+      setTimeout(() => screen.remove(), 300);
+    });
+  </script>
 </body>
 </html>
